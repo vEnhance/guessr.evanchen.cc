@@ -1,0 +1,6 @@
+# Configuration file for `ruff`, an extremely fast Python linter and formatter.
+# See https://docs.astral.sh/ruff for more information.
+#:schema https://www.schemastore.org/ruff.json
+
+# Keep in sync with `python-version` in .github/workflows/gh-pages-deploy.yml
+target-version = "py314"
