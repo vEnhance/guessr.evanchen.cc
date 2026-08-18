@@ -150,36 +150,39 @@ def createDiagram(dir_name, file_name, ext):
                 pxmax = float(pmax_list[0][1:])
                 pymax = float(pmax_list[1][:-1])
 
-    # writing json file
-    g = open(filejson, "w")
-    g.write("{\n")
-    g.write('"points" : [\n')
-    print(
-        ",\n".join([f'["{pt[0]}", {pt[1][1:]}, {pt[2][:-1]}]' for pt in pts_coor]),
-        file=g,
-    )
-    print("],", file=g)
-
-    print(f'"min" : [{min_list[0][1:]},{min_list[1][:-1]}],', file=g)
-    print(f'"max" : [{max_list[0][1:]},{max_list[1][:-1]}],', file=g)
-
-    print('"items" : [', file=g)
-    print(
-        ",\n".join(["[" + ",".join([f'"{p}"' for p in ls]) + "]" for ls in item_list]),
-        file=g,
-    )
-    print("],", file=g)
-
     assert pxmin is not None
     assert pymin is not None
     assert pxmax is not None
     assert pymax is not None
-    print(f'"source" : "{source}",', file=g)
-    print(f'"filename" : "{file_name}",', file=g)
-    print(f'"width" : "{pxmax - pxmin:f}",', file=g)
-    print(f'"height" : "{pymax - pymin:f}",', file=g)
-    print(f'"text" : {text}', file=g)  # json dump'ed, no quotes
-    print("}", file=g)
+
+    # writing json file
+    with open(filejson, "w") as g:
+        g.write("{\n")
+        g.write('"points" : [\n')
+        print(
+            ",\n".join([f'["{pt[0]}", {pt[1][1:]}, {pt[2][:-1]}]' for pt in pts_coor]),
+            file=g,
+        )
+        print("],", file=g)
+
+        print(f'"min" : [{min_list[0][1:]},{min_list[1][:-1]}],', file=g)
+        print(f'"max" : [{max_list[0][1:]},{max_list[1][:-1]}],', file=g)
+
+        print('"items" : [', file=g)
+        print(
+            ",\n".join(
+                ["[" + ",".join([f'"{p}"' for p in ls]) + "]" for ls in item_list]
+            ),
+            file=g,
+        )
+        print("],", file=g)
+
+        print(f'"source" : "{source}",', file=g)
+        print(f'"filename" : "{file_name}",', file=g)
+        print(f'"width" : "{pxmax - pxmin:f}",', file=g)
+        print(f'"height" : "{pymax - pymin:f}",', file=g)
+        print(f'"text" : {text}', file=g)  # json dump'ed, no quotes
+        print("}", file=g)
     return 1
 
 
